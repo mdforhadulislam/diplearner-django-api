@@ -1,0 +1,16 @@
+asgiref==3.7.2
+cffi==1.16.0
+cryptography==41.0.4
+Django==4.2.6
+django-colorfield==0.7.2
+django-cors-headers==4.3.0
+django-crispy-forms==1.14.0
+django-rest-knox==4.2.0
+djangorestframework==3.14.0
+gunicorn==21.2.0
+packaging==23.2
+Pillow==10.0.1
+pycparser==2.21
+pytz==2023.3.post1
+sqlparse==0.4.4
+tzdata==2023.3
