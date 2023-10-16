@@ -21,6 +21,7 @@ def serialize_user(user):
 
 @api_view(['GET'])
 def getApiUrls(request):
+    print(request)
     # token = AuthToken.objects.filter(user=1)
     # print(token)
     allUrls = {
