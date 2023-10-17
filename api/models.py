@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from book.models import AllBook
+from general_library.models import LibraryBook
 
 
 BLOOD_GROUP = (
@@ -51,7 +53,9 @@ class UserProfileInfo(models.Model):
         upload_to='profile/', blank=True, null=True)
     mobile_number = models.CharField(max_length=12, blank=True, null=True)
     blood_group = models.CharField(
-        max_length=20, choices=BLOOD_GROUP, default=' ')
+        max_length=20, choices=BLOOD_GROUP, default=' ', blank=True, null=True)
     institute_name = models.CharField(max_length=200, blank=True, null=True)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
-
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
+    bying_book = models.ManyToManyField(AllBook,blank=True, )
+    bying_genaral_book =  models.ManyToManyField(LibraryBook,blank=True,)
+    

@@ -5,9 +5,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken, TokenAuthentication
-from .serializers import RegisterSerializer
 from rest_framework import status
 from knox.models import AuthToken
+from .models import *
+from .serializers import *
+from django.http import JsonResponse
 
 
 def serialize_user(user):

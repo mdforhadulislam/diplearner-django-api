@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'knox',
     'api',
-    'book'
+    'book',
+    'general_library',
+    'all_semister'
 ]
 
 

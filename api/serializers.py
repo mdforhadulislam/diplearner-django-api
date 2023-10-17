@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers, validators
+from .models import *
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -28,6 +29,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             last_name=validated_data["last_name"]
         )
         return user
+
+
 
 
 
