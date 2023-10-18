@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'api',
     'book',
     'general_library',
-    'all_semister'
+    'all_semister',
+    'utils'
 ]
 
 

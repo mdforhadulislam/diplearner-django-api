@@ -17,26 +17,26 @@ BLOOD_GROUP = (
 
 
 class Region(models.Model):
-    name = models.CharField(max_length=200, blank=False, null=False)
+    region_name = models.CharField(max_length=200, blank=False, null=False)
 
     def __str__(self):
-        return self.name
+        return self.region_name
 
 
 class City(models.Model):
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, blank=False, null=False)
+    city_name = models.CharField(max_length=200, blank=False, null=False)
 
     def __str__(self):
-        return self.name
+        return self.city_name
 
 
 class Area(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, blank=False, null=False)
+    area_name = models.CharField(max_length=200, blank=False, null=False)
 
     def __str__(self):
-        return self.name
+        return self.area_name
 
 
 class Address(models.Model):
@@ -55,7 +55,7 @@ class UserProfileInfo(models.Model):
     blood_group = models.CharField(
         max_length=20, choices=BLOOD_GROUP, default=' ', blank=True, null=True)
     institute_name = models.CharField(max_length=200, blank=True, null=True)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
-    bying_book = models.ManyToManyField(AllBook,blank=True, )
-    bying_genaral_book =  models.ManyToManyField(LibraryBook,blank=True,)
-    
+    address = models.ForeignKey(
+        Address, on_delete=models.CASCADE, blank=True, null=True)
+    bying_book = models.ManyToManyField(AllBook, blank=True, )
+    bying_genaral_book = models.ManyToManyField(LibraryBook, blank=True,)
