@@ -38,34 +38,33 @@ class RegionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Region
-        fields = ('region_name')
+        fields = ('id', 'region_name')
 
 
 class CitySerializer(serializers.ModelSerializer):
-    region = RegionSerializer(read_only=True)
     city_name = serializers.CharField(max_length=200)
 
     class Meta:
         model = City
-        fields = ('id', 'region_name', 'city_name')
+        fields = ('id', 'city_name')
 
 
 class AreaSerializer(serializers.ModelSerializer):
-    city = CitySerializer(read_only=True)
     area_name = serializers.CharField(max_length=200)
 
     class Meta:
         model = Area
-        fields = ('id', 'area_name', 'city_name')
+        fields = ('id', 'area_name')
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    address = AreaSerializer(read_only=True)
-    area_address = serializers.CharField(max_length=500)
+    region = RegionSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    area = AreaSerializer(read_only=True)
 
     class Meta:
         model = Address
-        fields = ('id', 'address', 'area_address')
+        fields = ('__all__')
 
 
 class UserProfileInfoSerializer(serializers.ModelSerializer):
@@ -75,10 +74,11 @@ class UserProfileInfoSerializer(serializers.ModelSerializer):
     blood_group = serializers.CharField(max_length=20)
     institute_name = serializers.CharField(max_length=200)
     address = AddressSerializer(read_only=True)
+    area_address = serializers.CharField(max_length=500)
     bying_book = AllBookSerializer(many=True)
     bying_genaral_book = LibraryBookSerializer(many=True)
 
     class Meta:
         model = Area
-        fields = ('id', 'user_id', 'user_profile_image', 'mobile_number', 'institute_name', 'blood_group',
-                  'address', 'bying_book', 'bying_genaral_book')
+        fields = ('id', 'user_id', 'user_profile_image', 'mobile_number', 'institute_name',
+                  'blood_group', 'address', 'area_address', 'bying_book', 'bying_genaral_book')

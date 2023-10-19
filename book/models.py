@@ -17,18 +17,8 @@ class BookPublisher(models.Model):
         return self.publisher_name
 
 
-class AllBook(models.Model):
-    name = models.CharField(max_length=200, blank=True, null=True)
-    probidhan = models.ForeignKey(Probidhan, on_delete=models.CASCADE)
-    subject_code = models.CharField(max_length=7, blank=True, null=True)
-    book_publisher = models.ForeignKey(BookPublisher, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.name} - {self.subject_code} - {self.probidhan} - {self.book_publisher}'
-
 
 class Chapter(models.Model):
-    book = models.ForeignKey(AllBook, on_delete=models.CASCADE)
     chapter_name = models.CharField(max_length=100, blank=True, null=True)
     chapter_number = models.CharField(max_length=100, blank=True, null=True)
 
@@ -36,8 +26,20 @@ class Chapter(models.Model):
         return f'{self.chapter_name} - {self.chapter_number}'
 
 
+
+class AllBook(models.Model):
+    name = models.CharField(max_length=200, blank=True, null=True)
+    probidhan = models.ForeignKey(Probidhan, on_delete=models.CASCADE)
+    subject_code = models.CharField(max_length=7, blank=True, null=True)
+    book_publisher = models.ForeignKey(BookPublisher, on_delete=models.CASCADE)
+    chapter = models.ManyToManyField(Chapter,blank=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.subject_code} - {self.probidhan} - {self.book_publisher}'
+
+
+
 class Page(models.Model):
-    book = models.ForeignKey(AllBook, on_delete=models.CASCADE)
     book_name = models.CharField(max_length=100, blank=True, null=True)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     chapter_name = models.CharField(max_length=100, blank=True, null=True)

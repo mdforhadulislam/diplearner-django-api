@@ -57,12 +57,55 @@ def register(request):
 
 
 @api_view(['GET'])
+def region(request):
+    try:
+        all_region = Region.objects.all()
+        all_region_data_serializer = RegionSerializer(all_region, many=True)
+        all_region_data = all_region_data_serializer.data
+        return respons_setup('get all region', all_region_data, 200)
+    except Exception as error:
+        return respons_setup('there was an servier said error', {}, 400)
+
+
+@api_view(['GET'])
+def city(request):
+    try:
+        all_city = City.objects.all()
+        all_city_data_serializer = CitySerializer(all_city, many=True)
+        all_city_data = all_city_data_serializer.data
+        return respons_setup('get all city', all_city_data, 200)
+    except Exception as error:
+        return respons_setup('there was an servier said error', {}, 400)
+
+
+@api_view(['GET'])
+def area(request):
+    try:
+        all_area = Area.objects.all()
+        all_area_data_serializer = AreaSerializer(all_area, many=True)
+        all_area_data = all_area_data_serializer.data
+        return respons_setup('get all area', all_area_data, 200)
+    except Exception as error:
+        return respons_setup('there was an servier said error', {}, 400)
+
+
+@api_view(['GET'])
+def address(request):
+    try:
+        all_address = Address.objects.all()
+        all_address_data_serializer = AddressSerializer(all_address, many=True)
+        all_address_data = all_address_data_serializer.data
+        return respons_setup('get all address', all_address_data, 200)
+    except Exception as error:
+        return respons_setup('there was an servier said error', {}, 400)
+
+
+@api_view(['GET'])
 def user_info(request, id):
-    # try:
-    all_user_info = UserProfileInfo.objects.get(id=id)
-    user_info_data_serializer = UserProfileInfoSerializer(all_user_info)
-    user_data = user_info_data_serializer.data
-    return respons_setup('register succes', user_data, 200)
-    # except Exception as error:
-    #     print(error)
-    #     return respons_setup('there was an servier said error', {}, 400)
+    try:
+        all_user_info = UserProfileInfo.objects.get(id=id)
+        user_info_data_serializer = UserProfileInfoSerializer(all_user_info)
+        user_data = user_info_data_serializer.data
+        return respons_setup('register succes', user_data, 200)
+    except Exception as error:
+        return respons_setup('there was an servier said error', {}, 400)

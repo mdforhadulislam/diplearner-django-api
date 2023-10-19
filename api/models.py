@@ -24,7 +24,6 @@ class Region(models.Model):
 
 
 class City(models.Model):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
     city_name = models.CharField(max_length=200, blank=False, null=False)
 
     def __str__(self):
@@ -32,7 +31,6 @@ class City(models.Model):
 
 
 class Area(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
     area_name = models.CharField(max_length=200, blank=False, null=False)
 
     def __str__(self):
@@ -40,11 +38,9 @@ class Area(models.Model):
 
 
 class Address(models.Model):
-    address = models.ForeignKey(City, on_delete=models.CASCADE)
-    area_address = models.TextField(max_length=500, blank=True, null=True)
-
-    def __str__(self):
-        return self.area_address
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
 
 
 class UserProfileInfo(models.Model):
@@ -57,5 +53,6 @@ class UserProfileInfo(models.Model):
     institute_name = models.CharField(max_length=200, blank=True, null=True)
     address = models.ForeignKey(
         Address, on_delete=models.CASCADE, blank=True, null=True)
+    area_address = models.TextField(max_length=500, blank=True, null=True)
     bying_book = models.ManyToManyField(AllBook, blank=True, )
     bying_genaral_book = models.ManyToManyField(LibraryBook, blank=True,)

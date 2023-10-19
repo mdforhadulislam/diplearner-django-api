@@ -3,45 +3,44 @@ from rest_framework import serializers, validators
 from .models import *
 
 
-class ProbidhanSerializer(serializers.Serializer):
+class ProbidhanSerializer(serializers.ModelSerializer):
     probidhan_years = serializers.CharField(max_length=5)
 
     class Meta:
         model = Probidhan
-        field = '__all__'
+        fields = '__all__'
 
 
-class BookPublisherSerializer(serializers.Serializer):
+class BookPublisherSerializer(serializers.ModelSerializer):
     publisher_name = serializers.CharField(max_length=100)
 
     class Meta:
         model = BookPublisher
-        field = '__all__'
+        fields = '__all__'
 
 
-class AllBookSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=200)
-    probidhan = ProbidhanSerializer(read_only=True)
-    subject_code = serializers.CharField(max_length=7)
-    book_publisher = BookPublisherSerializer(read_only=True)
-
-    class Meta:
-        model = AllBook
-        field = '__all__'
-
-
-class ChapterSerializer(serializers.Serializer):
-    book = AllBookSerializer(read_only=True)
+class ChapterSerializer(serializers.ModelSerializer):
     chapter_name = serializers.CharField(max_length=100)
     chapter_number = serializers.CharField(max_length=100)
 
     class Meta:
+        model = Chapter
+        fields = '__all__'
+
+
+class AllBookSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=200)
+    probidhan = ProbidhanSerializer(read_only=True)
+    subject_code = serializers.CharField(max_length=7)
+    book_publisher = BookPublisherSerializer(read_only=True)
+    chapter = ChapterSerializer(many=True)
+
+    class Meta:
         model = AllBook
-        field = '__all__'
+        fields = ('__all__')
 
 
-class PageSerializer(serializers.Serializer):
-    book = AllBookSerializer(read_only=True)
+class PageSerializer(serializers.ModelSerializer):
     book_name = serializers.CharField(max_length=100)
     chapter = ChapterSerializer(read_only=True)
     chapter_name = serializers.CharField(max_length=100)
@@ -50,4 +49,4 @@ class PageSerializer(serializers.Serializer):
 
     class Meta:
         model = AllBook
-        field = '__all__'
+        fields = ('id','page_images', 'chapter','book_name', 'chapter_name', 'page_number')
